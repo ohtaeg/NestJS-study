@@ -21,5 +21,4 @@ $ npm i @types/express -D
 ```shell
 $ npm install -g @nestjs/cli
 $ nest new {projet-name}
-$ 
 ```
