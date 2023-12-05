@@ -4,6 +4,8 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Param,
+  ParseIntPipe,
   Patch,
   Post,
   Put,
@@ -11,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { CatsService } from './cats.service';
 import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { PositiveIntPipe } from 'src/common/pipes/positiveInt.pipe';
 
 @Controller('cats')
 export class CatsController {
@@ -58,9 +61,16 @@ export class CatsController {
     return '';
   }
 
+  /**
+   * 파라미터로 넘어오는 타입은 object이다.
+   * pipe를 통해 특정 필드에 대한 타입 변환을 아래와 같이 할 수 있다.
+   * ParseIntPipe - nest에서 제공하는 기본 pipe
+   * PositiveIntPipe - 커스텀 파이프
+   * 파이프를 여러개 받을 수 있다.
+   */
   @Get(':id')
-  findById(): string {
-    return '';
+  findById(@Param('id', ParseIntPipe, PositiveIntPipe) id: number): string {
+    return 'findById : ' + id;
   }
 
   @Post(':id')
