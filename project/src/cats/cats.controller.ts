@@ -10,12 +10,16 @@ import {
   Post,
   Put,
   UseFilters,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CatsService } from './cats.service';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
 import { PositiveIntPipe } from 'src/common/pipes/positiveInt.pipe';
+import { SuccessResponseInterceptor } from 'src/common/interceptor/success.interceptor';
 
 @Controller('cats')
+// 인터셉터 DI
+@UseInterceptors(SuccessResponseInterceptor)
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
@@ -69,8 +73,8 @@ export class CatsController {
    * 파이프를 여러개 받을 수 있다.
    */
   @Get(':id')
-  findById(@Param('id', ParseIntPipe, PositiveIntPipe) id: number): string {
-    return 'findById : ' + id;
+  findById(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
+    return { id };
   }
 
   @Post(':id')
