@@ -15,6 +15,8 @@ import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter'
 import { PositiveIntPipe } from 'src/common/pipes/positiveInt.pipe';
 import { SuccessResponseInterceptor } from 'src/common/interceptor/success.interceptor';
 import { CatRequestDto } from './dto/cats.request.dto';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ReadOnlyCat } from './dto/cat.dto';
 
 @Controller('cats')
 // 인터셉터 DI
@@ -71,16 +73,30 @@ export class CatsController {
     return { id };
   }
 
+  @ApiOperation({ summary: '현재 고양이 가져오기' })
   @Get()
   getCurrentCat() {
     return 'current cat';
   }
 
+  // swagger api summary
+  @ApiOperation({ summary: '회원가입' })
+  // swagger response summary
+  @ApiResponse({
+    status: 500,
+    description: 'Server error',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+    type: ReadOnlyCat,
+  })
   @Post()
   async signUp(@Body() body: CatRequestDto) {
     return this.catsService.signUp(body);
   }
 
+  @ApiOperation({ summary: '로그인' })
   @Post('login')
   logIn() {
     return 'login';
@@ -91,6 +107,7 @@ export class CatsController {
     return 'logout';
   }
 
+  @ApiOperation({ summary: '고양이 이미지 업로드' })
   @Post('upload/cats')
   uploadCatImg() {
     return 'uploadImg';

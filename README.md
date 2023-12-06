@@ -45,6 +45,8 @@ $ npm i --save class-validator class-transformer
 $ npm i bcrypt
 $ npm i -D @types/bcrypt
 
+// swagger
+$ npm install --save @nestjs/swagger
 ```
 
 ## nest.js Request lifecycle
