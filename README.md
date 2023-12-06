@@ -35,6 +35,18 @@ $ npm install --save @nestjs/mongoose mongoose
 $ npm i --save @nestjs/config
 ```
 
+## install etc modules
+
+```shell
+// class-validator
+$ npm i --save class-validator class-transformer
+
+// bcrypt
+$ npm i bcrypt
+$ npm i -D @types/bcrypt
+
+```
+
 ## nest.js Request lifecycle
 
 - [ref docs](https://docs.nestjs.com/faq/request-lifecycle)
