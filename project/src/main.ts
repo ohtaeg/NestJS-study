@@ -11,6 +11,13 @@ async function bootstrap() {
   // 글로벌 예외 필터 적용
   app.useGlobalFilters(new HttpExceptionFilter());
 
+  // CORS 적용
+  app.enableCors({
+    // 누구나 다 접근 허용
+    origin: true,
+    credentials: true,
+  });
+
   // swagger 적용
   const config = new DocumentBuilder()
     .setTitle('Cats example')
