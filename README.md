@@ -47,6 +47,15 @@ $ npm i -D @types/bcrypt
 
 // swagger
 $ npm install --save @nestjs/swagger
+
+// Passport.js 는 Node.js를 위한 인증 미들웨어
+// 아이디와 비밀번호를 사용해 로그인하는 방식을 포함해서, 구글, 페이스북, 트위터 등을 통한 여러가지 인증 방법을 제공
+$ npm install --save @nestjs/passport passport passport-local
+$ npm install --save-dev @types/passport-local
+
+// jwt
+$ npm install --save @nestjs/jwt passport-jwt
+$ npm install --save-dev @types/passport-jwt
 ```
 
 ## nest.js Request lifecycle

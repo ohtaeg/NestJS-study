@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import {
   Body,
   Controller,
@@ -17,12 +18,20 @@ import { SuccessResponseInterceptor } from 'src/common/interceptor/success.inter
 import { CatRequestDto } from './dto/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ReadOnlyCat } from './dto/cat.dto';
+import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 
 @Controller('cats')
 // 인터셉터 DI
 @UseInterceptors(SuccessResponseInterceptor)
 export class CatsController {
-  constructor(private readonly catsService: CatsService) {}
+  constructor(
+    private readonly catsService: CatsService,
+    /**
+     * CatsController에서 AuthService를 사용하기 위해 CatModule에서 AuthModule을 import후
+     * AuthMudole에서 캡슐화 된 AuthService를 외부 모듈인 CatModule에서 사용하기 위해 export 해줘야함
+     */
+    private readonly authService: AuthService,
+  ) {}
 
   @Get('/wrong')
   wrong() {
@@ -98,8 +107,8 @@ export class CatsController {
 
   @ApiOperation({ summary: '로그인' })
   @Post('login')
-  logIn() {
-    return 'login';
+  login(@Body() body: LoginRequestDto) {
+    return this.authService.login(body);
   }
 
   @Post('logout')
