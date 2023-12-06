@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Param, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Controller } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -8,12 +7,4 @@ export class AppController {
   // export를 하려면 cats.module.ts에서 가서 @Module() 내에 export를 해준다.
   // constructor(private readonly appService: AppService, private readonly catsService: CatsService) {}
   constructor(private readonly appService: AppService) {}
-
-  @Get('/:id')
-  getHello(@Req() req: Request, @Body() body, @Param() param): string {
-    console.log(req);
-    console.log(body);
-    console.log(param);
-    return this.appService.getHello();
-  }
 }

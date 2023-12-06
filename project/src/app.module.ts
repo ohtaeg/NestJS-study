@@ -10,7 +10,10 @@ import * as mongoose from 'mongoose';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      cache: true,
+    }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     CatsModule,
     AuthModule,

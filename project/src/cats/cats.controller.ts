@@ -8,7 +8,9 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Req,
   UseFilters,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { CatsService } from './cats.service';
@@ -19,6 +21,8 @@ import { CatRequestDto } from './dto/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ReadOnlyCat } from './dto/cat.dto';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { Request } from 'express';
 
 @Controller('cats')
 // 인터셉터 DI
@@ -82,12 +86,6 @@ export class CatsController {
     return { id };
   }
 
-  @ApiOperation({ summary: '현재 고양이 가져오기' })
-  @Get()
-  getCurrentCat() {
-    return 'current cat';
-  }
-
   // swagger api summary
   @ApiOperation({ summary: '회원가입' })
   // swagger response summary
@@ -114,6 +112,14 @@ export class CatsController {
   @Post('logout')
   logOut() {
     return 'logout';
+  }
+
+  @ApiOperation({ summary: '현재 고양이 가져오기' })
+  // 가드를 통해 인증 처리, 인증 처리된 데이터를 가드가 반환해준다.
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  getCurrentCat(@Req() request: Request) {
+    return request.user;
   }
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })

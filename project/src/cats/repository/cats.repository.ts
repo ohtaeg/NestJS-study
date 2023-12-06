@@ -21,7 +21,12 @@ export class CatsRepository {
   }
 
   async findCatByEmail(email: string): Promise<Cat | null> {
-    const cat = await this.catModel.findOne({ email });
-    return cat;
+    return await this.catModel.findOne({ email });
+  }
+
+  async findByIdWithoutPassword(id: string): Promise<Cat | null> {
+    // 여러 필드중 원하는 필드만 조회할 수 있고 제거할 수 있다. '-password'
+    // 가지고오고 싶은 필드는 띄어쓰기로 구분한다 .select('email name')
+    return await this.catModel.findById(id).select('-password');
   }
 }
