@@ -52,6 +52,11 @@ export class Cat extends Document {
   @Prop()
   imgUrl: string;
 
+  /**
+   * cat.readOnlyData를 하는 순간,
+   * mongoose에서 @Prop이 없으므로 virtual field라는 것을 인식하고
+   * 아래와 같은 해당 스키마에서 정의되어 있는 virtual method를 찾아 리턴
+   */
   readonly readOnlyData: { id: string; email: string; name: string };
 }
 
