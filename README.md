@@ -23,6 +23,18 @@ $ npm install -g @nestjs/cli
 $ nest new {projet-name}
 ```
 
+## install mongoose
+
+```shell
+$ npm install --save @nestjs/mongoose mongoose
+```
+
+## install configure
+
+```shell
+$ npm i --save @nestjs/config
+```
+
 ## nest.js Request lifecycle
 
 - [ref docs](https://docs.nestjs.com/faq/request-lifecycle)
