@@ -1,14 +1,12 @@
 import {
+  Body,
   Controller,
-  Delete,
   Get,
   HttpException,
   HttpStatus,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
-  Put,
   UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
@@ -16,6 +14,7 @@ import { CatsService } from './cats.service';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
 import { PositiveIntPipe } from 'src/common/pipes/positiveInt.pipe';
 import { SuccessResponseInterceptor } from 'src/common/interceptor/success.interceptor';
+import { CatRequestDto } from './dto/cats.request.dto';
 
 @Controller('cats')
 // 인터셉터 DI
@@ -60,11 +59,6 @@ export class CatsController {
     throw new HttpException('api is broken', HttpStatus.FORBIDDEN);
   }
 
-  @Get()
-  findAll(): string {
-    return '';
-  }
-
   /**
    * 파라미터로 넘어오는 타입은 object이다.
    * pipe를 통해 특정 필드에 대한 타입 변환을 아래와 같이 할 수 있다.
@@ -77,15 +71,28 @@ export class CatsController {
     return { id };
   }
 
-  @Post(':id')
-  create() {}
+  @Get()
+  getCurrentCat() {
+    return 'current cat';
+  }
 
-  @Put(':id')
-  update() {}
+  @Post()
+  async signUp(@Body() body: CatRequestDto) {
+    return this.catsService.signUp(body);
+  }
 
-  @Patch(':id')
-  updatePartial() {}
+  @Post('login')
+  logIn() {
+    return 'login';
+  }
 
-  @Delete(':id')
-  delete() {}
+  @Post('logout')
+  logOut() {
+    return 'logout';
+  }
+
+  @Post('upload/cats')
+  uploadCatImg() {
+    return 'uploadImg';
+  }
 }
