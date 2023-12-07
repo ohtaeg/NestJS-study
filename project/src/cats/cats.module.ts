@@ -7,6 +7,7 @@ import { CatsRepository } from './repository/cats.repository';
 import { AuthModule } from 'src/auth/auth.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { Comments, CommentsSchema } from 'src/comments/comments.schema';
+import * as multer from 'multer';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { Comments, CommentsSchema } from 'src/comments/comments.schema';
     MulterModule.register({
       // upload라는 폴더에 저장이 된다는 뜻
       dest: './upload',
+      storage: multer.memoryStorage(),
     }),
 
     // 모듈간 순환 종속성 해결을 위한 유틸리티 함수, 양쪽에 선언해야함

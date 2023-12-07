@@ -62,6 +62,9 @@ $ npm install express-basic-auth
 
 // file upload, nest는 express multer 미들웨어 패키지 기반을 이용
 $ npm i -D @types/multer
+
+// s3 sdk
+$ npm i aws-sdk @nestjs/config
 ```
 
 ## nest.js Request lifecycle
