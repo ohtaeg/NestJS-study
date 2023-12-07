@@ -35,4 +35,8 @@ export class CatsRepository {
     cat.imgUrl = `http://localhost:8000/media/${fileName}`;
     return await cat.save();
   }
+
+  async findAll() {
+    return await this.catModel.find();
+  }
 }

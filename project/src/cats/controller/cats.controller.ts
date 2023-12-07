@@ -120,6 +120,12 @@ export class CatsController {
     return cat.readOnlyData;
   }
 
+  @ApiOperation({ summary: '모든 고양이 가져오기' })
+  @Get('all')
+  getAllCat() {
+    return this.catsService.getAllCat();
+  }
+
   @ApiOperation({ summary: '고양이 이미지 업로드' })
   /**
    * https://docs.nestjs.com/techniques/file-upload#multiple-files
