@@ -59,6 +59,9 @@ $ npm install --save-dev @types/passport-jwt
 
 // express basic auth (for swagger auth)
 $ npm install express-basic-auth
+
+// file upload, nest는 express multer 미들웨어 패키지 기반을 이용
+$ npm i -D @types/multer
 ```
 
 ## nest.js Request lifecycle

@@ -29,4 +29,10 @@ export class CatsRepository {
     // 가지고오고 싶은 필드는 띄어쓰기로 구분한다 .select('email name')
     return await this.catModel.findById(id).select('-password');
   }
+
+  async updateImg(id: any, fileName: string): Promise<Cat> {
+    const cat = await this.catModel.findById(id);
+    cat.imgUrl = `http://localhost:8000/media/${fileName}`;
+    return await cat.save();
+  }
 }

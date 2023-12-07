@@ -49,7 +49,11 @@ export class Cat extends Document {
   })
   password: string;
 
-  @Prop()
+  @Prop({
+    default:
+      'https://github.com/amamov/NestJS-solid-restapi-boilerplate/raw/main/docs/images/1.jpeg',
+  })
+  @IsString()
   imgUrl: string;
 
   /**
@@ -57,7 +61,12 @@ export class Cat extends Document {
    * mongoose에서 @Prop이 없으므로 virtual field라는 것을 인식하고
    * 아래와 같은 해당 스키마에서 정의되어 있는 virtual method를 찾아 리턴
    */
-  readonly readOnlyData: { id: string; email: string; name: string };
+  readonly readOnlyData: {
+    id: string;
+    email: string;
+    name: string;
+    imgUrl: string;
+  };
 }
 
 // 클래스를 스키마로 바꿔준다.
@@ -68,5 +77,6 @@ CatSchema.virtual('readOnlyData').get(function (this: Cat) {
     id: this.id,
     email: this.email,
     name: this.name,
+    imgUrl: this.imgUrl,
   };
 });

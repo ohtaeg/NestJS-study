@@ -8,6 +8,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  UploadedFiles,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -23,6 +24,8 @@ import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { Cat } from './cats.schema';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { multerOptions } from 'src/common/utils/multer.options';
 
 @Controller('cats')
 // 인터셉터 DI
@@ -118,8 +121,19 @@ export class CatsController {
   }
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })
-  @Post('upload/cats')
-  uploadCatImg() {
-    return 'uploadImg';
+  /**
+   * https://docs.nestjs.com/techniques/file-upload#multiple-files
+   * fieldName: 파일을 보유하는 HTML 양식의 필드 이름을 제공하는 문자열, 프론트 코드에서 image로 넘겨주고있어서 바꿈
+   * maxCount : 요청당 최대 업로드 갯수
+   * multerOptions : 업로드시 옵션, 유틸에 옵션을 만들어서 폴더에 저장하도록 함 (dist에)
+   */
+  @Post('upload')
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cats')))
+  uploadCatImg(
+    @CurrentUser() cat: Cat,
+    @UploadedFiles() files: Array<Express.Multer.File>,
+  ) {
+    return this.catsService.upload(cat, files);
   }
 }
