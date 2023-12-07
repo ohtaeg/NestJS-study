@@ -1,4 +1,4 @@
-import { AuthService } from './../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import {
   Body,
   Controller,
@@ -13,16 +13,16 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { CatsService } from './cats.service';
+import { CatsService } from '../service/cats.service';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
 import { PositiveIntPipe } from 'src/common/pipes/positiveInt.pipe';
 import { SuccessResponseInterceptor } from 'src/common/interceptor/success.interceptor';
-import { CatRequestDto } from './dto/cats.request.dto';
+import { CatRequestDto } from '../dto/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { ReadOnlyCat } from './dto/cat.dto';
+import { ReadOnlyCat } from '../dto/cat.dto';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
-import { Cat } from './cats.schema';
+import { Cat } from '../cats.schema';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from 'src/common/utils/multer.options';
