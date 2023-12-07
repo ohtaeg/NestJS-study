@@ -56,6 +56,9 @@ $ npm install --save-dev @types/passport-local
 // jwt
 $ npm install --save @nestjs/jwt passport-jwt
 $ npm install --save-dev @types/passport-jwt
+
+// express basic auth (for swagger auth)
+$ npm install express-basic-auth
 ```
 
 ## nest.js Request lifecycle
