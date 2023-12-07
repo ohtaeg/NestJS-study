@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory, SchemaOptions } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { HydratedDocument, Document } from 'mongoose';
+import { Comments } from 'src/comments/comments.schema';
 
 export type CatDocument = HydratedDocument<Cat>;
 
@@ -66,17 +67,31 @@ export class Cat extends Document {
     email: string;
     name: string;
     imgUrl: string;
+    comments: Comments[];
   };
+
+  readonly comments: Comments[];
 }
 
 // 클래스를 스키마로 바꿔준다.
-export const CatSchema = SchemaFactory.createForClass(Cat);
+export const _CatSchema = SchemaFactory.createForClass(Cat);
 // 클라이언트한테 보여줄 데이터를 지정한다.
-CatSchema.virtual('readOnlyData').get(function (this: Cat) {
+_CatSchema.virtual('readOnlyData').get(function (this: Cat) {
   return {
     id: this.id,
     email: this.email,
     name: this.name,
     imgUrl: this.imgUrl,
+    comments: this.comments,
   };
 });
+
+_CatSchema.virtual('comments', {
+  // ref: 스키마 이름 (참조할 collections), Cat.comments 필드에 comments 스키마를 가져올 것이다.
+  ref: 'comments',
+  localField: '_id', // 현재 스키마에 선언되어 있는 참조할 필드
+  foreignField: 'info', // collections에서 참조할 필드, A라는 id인 고양이에 달린 코멘트들을 다 가져오겠다.
+  // justOne: true, // 하나만 반환하는지 여부
+});
+_CatSchema.set('toObject', { virtuals: true }); // 객체로 변환 가능하도록
+_CatSchema.set('toJSON', { virtuals: true }); // JSON으로 변환 가능하도록

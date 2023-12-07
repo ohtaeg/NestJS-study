@@ -5,8 +5,6 @@ import {
   Get,
   HttpException,
   HttpStatus,
-  Param,
-  ParseIntPipe,
   Post,
   UploadedFiles,
   UseFilters,
@@ -15,7 +13,6 @@ import {
 } from '@nestjs/common';
 import { CatsService } from '../service/cats.service';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
-import { PositiveIntPipe } from 'src/common/pipes/positiveInt.pipe';
 import { SuccessResponseInterceptor } from 'src/common/interceptor/success.interceptor';
 import { CatRequestDto } from '../dto/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -84,10 +81,10 @@ export class CatsController {
    * PositiveIntPipe - 커스텀 파이프
    * 파이프를 여러개 받을 수 있다.
    */
-  @Get(':id')
-  findById(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
-    return { id };
-  }
+  // @Get(':id')
+  // findById(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
+  //   return { id };
+  // }
 
   // swagger api summary
   @ApiOperation({ summary: '회원가입' })

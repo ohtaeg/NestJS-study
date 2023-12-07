@@ -2,15 +2,20 @@ import { Module, forwardRef } from '@nestjs/common';
 import { CatsController } from './controller/cats.controller';
 import { CatsService } from './service/cats.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Cat, CatSchema } from './cats.schema';
+import { Cat, _CatSchema } from './cats.schema';
 import { CatsRepository } from './repository/cats.repository';
 import { AuthModule } from 'src/auth/auth.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { Comments, CommentsSchema } from 'src/comments/comments.schema';
 
 @Module({
   imports: [
     // CatSchema 스키마 등록
-    MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }]),
+    MongooseModule.forFeature([
+      { name: Cat.name, schema: _CatSchema },
+      // cats 조회시 코멘트도 같이 갖고올 수 있도록
+      { name: Comments.name, schema: CommentsSchema },
+    ]),
 
     // 파일 업로드 모듈 등록
     MulterModule.register({
