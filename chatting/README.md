@@ -69,6 +69,9 @@ $ npm i --save @nestjs/config
 
 # mongoose
 $ npm install --save @nestjs/mongoose mongoose
+
+# web socket (https://docs.nestjs.com/websockets/gateways)
+$ npm i --save @nestjs/websockets @nestjs/platform-socket.io
 ```
 
 ## Support
