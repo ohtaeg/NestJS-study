@@ -64,6 +64,11 @@ $ npm run test:cov
 # template engine for ssr
 $ npm install --save hbs
 
+# config
+$ npm i --save @nestjs/config
+
+# mongoose
+$ npm install --save @nestjs/mongoose mongoose
 ```
 
 ## Support
